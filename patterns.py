@@ -1,6 +1,7 @@
 import re
 
-# Paper platform patterns for detecting direct links
+# Patterns for detecting direct links to scientific papers
+# Any link that matches these patterns will be considered a paper link, except those from excluded domains.
 paper_patterns = [
     r'https?://[^\s<>"]+\.pdf(?:[?#][^\s<>"]*)?\b', # More precise PDF pattern
     r'https?://[^\s<>"]+/(?:download/pdf|fulltext)/\d+(?:[?#][^\s<>"]*)?\b',
@@ -252,6 +253,7 @@ paper_patterns = [
 ]
 
 # Enhanced content patterns to catch paper announcements
+# Need two of these to count as a paper announcement
 content_patterns = [
     # Personal announcements and excitement
     r'(?:excited|happy|pleased) to (?:share|announce|present)',
@@ -312,7 +314,7 @@ content_patterns = [
     r'download (?:paper|article|pdf)',    # Download mentions
 ]
 
-# PDF exclusion domains as a set (faster 'in' operations)
+# PDF exclusions: do not count links from these domains as papers
 PDF_EXCLUSIONS = {
     'courtlistener.com',
     'justia.com',          # Legal database, case law
