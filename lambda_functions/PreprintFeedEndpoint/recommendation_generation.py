@@ -2,6 +2,7 @@ import boto3
 import json
 import time
 import random
+import os
 
 dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
 recommendations_table = dynamodb.Table('recommendations')
@@ -19,9 +20,9 @@ NO_DEFAULT = -1
 
 def get_recommender(user_did):
     if (
-        user_did == 'did:plc:6ysaocl4wbig54tsqox4a2f5' or
-        user_did == 'did:plc:kkhfvbrf4me4ogph35hjx3zc'
-    ): 
+        user_did == os.environ.get('BETA_TESTER_1') or
+        user_did == os.environ.get('BETA_TESTER_2')
+    ):
         return FOLLOW_RECOMMENDER_NAME_REPOSTS_QUOTEPOSTS
     else:
         return FOLLOW_RECOMMENDER_NAME
